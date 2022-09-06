@@ -8,8 +8,9 @@ All functions are meant to be used in `pandas.pipe method`.
 
 Example of usage:
 ```python
+import pandstat
 (dataframe
- .pipe(ols_model, ['col1', 'col2']
+ .pipe(pandstat.ols_model, ['col1', 'col2']
 )
 ```
 
