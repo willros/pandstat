@@ -13,15 +13,13 @@ def ols_model(df_: pd.DataFrame, dependent: str, independent: list) -> pd.DataFr
    
     independent = independent[0] if len(independent) == 1 else ' + '.join([x for x in independent])
     model = smf.ols(f'{dependent} ~ {independent}', data=df_).fit()
-    df = model.summary2().tables[1].reset_index()
-    
-    df = (df
-     .rename(columns={'P>|t|': 'p_value',
+    df = (model.summary2().tables[1].reset_index()
+           .rename(columns={'P>|t|': 'p_value',
                       'index': 'term',
                       'Coef.': 'coef',
                       'Std.Err.': 'std_error',
                       '[0.025': 'conf_low',
                       '0.975]': 'conf_high'})
-    )
+         )
     
     return df
