@@ -15,6 +15,10 @@ import pandstat
 )
 ```
 
+## Dependencies
+
+* `statsmodels`
+* `pandas`
 
 
 
