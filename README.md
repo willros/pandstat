@@ -9,6 +9,7 @@ All functions are meant to be used in `pandas.pipe method`.
 Example of usage:
 ```python
 import pandstat
+
 (dataframe
  .pipe(pandstat.ols_model, ['col1', 'col2']
 )
