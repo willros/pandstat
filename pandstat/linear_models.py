@@ -4,7 +4,6 @@ from typing import Union
 import numpy as np
 
 
-
 def ols_model(df_: pd.DataFrame, dependent: str, independent: list) -> pd.DataFrame:
     """
     Runs OLS by formula on columns in dataframe
@@ -114,12 +113,11 @@ def one_sample_ttest_grouped(
                     "0.975]": "conf_high",
                 }
             )
-            .assign(group=name,
-                    n_observations=len(new_variables))
+            .assign(group=name, n_observations=len(new_variables))
         )
 
         list_of_df.append(model_df)
 
     models = pd.concat(list_of_df)
-    
+
     return models
