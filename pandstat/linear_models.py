@@ -15,7 +15,7 @@ def ols_model(df_: pd.DataFrame, dependent: str, independent: list) -> pd.DataFr
     model = smf.ols(f'{dependent} ~ {independent}', data=df_).fit()
     df = model.summary2().tables[1].reset_index()
     
-    return (df
+    df = (df
      .rename(columns={'P>|t|': 'p_value',
                       'index': 'term',
                       'Coef.': 'coef',
@@ -23,3 +23,5 @@ def ols_model(df_: pd.DataFrame, dependent: str, independent: list) -> pd.DataFr
                       '[0.025': 'conf_low',
                       '0.975]': 'conf_high'})
     )
+    
+    return df
