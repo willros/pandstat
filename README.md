@@ -9,7 +9,8 @@ All functions are meant to be used in `pandas.pipe method`.
 Example of usage:
 ```python
 (dataframe
- .pipe(ols_model, ['col1', 'col2'])
+ .pipe(ols_model, ['col1', 'col2']
+)
 ```
 
 
