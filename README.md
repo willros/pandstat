@@ -11,7 +11,7 @@ Example of usage:
 import pandstat
 
 (dataframe
- .pipe(pandstat.ols_model, ['col1', 'col2']
+ .pipe(pandstat.ols_model, ['col1', 'col2'])
 )
 ```
 
