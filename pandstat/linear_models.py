@@ -2,8 +2,7 @@ import statsmodels.formula.api as smf
 import pandas as pd
 
 
-def ols_model(df_: pd.DataFrame, dependent: str,
-              independent: list) -> pd.DataFrame:
+def ols_model(df_: pd.DataFrame, dependent: str, independent: list) -> pd.DataFrame:
     """
     Runs OLS by formula on columns in dataframe
     :param df_: pd.DataFrame. The dataframe to run the function on.
