@@ -1,6 +1,5 @@
 import pandas as pd
 import pandas_flavor as pf
-import numpy as np
 
 
 @pf.register_dataframe_method
@@ -13,7 +12,9 @@ def add_count(df_: pd.DataFrame, col: str, name: str = None) -> pd.DataFrame:
 
     Used as a regular pandas method.
     """
-    df = df_.assign(n=lambda x: x.groupby(col, as_index=False)[col].transform(np.size))
+    count_dict = df_.value_counts(col).to_dict()
+
+    df = df_.assign(n=lambda x: x[col].map(count_dict))
 
     if name:
         return df.rename(columns={"n": name})

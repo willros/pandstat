@@ -2,7 +2,7 @@ from setuptools import setup
 
 setup(
     name="pandstat",
-    version="0.1.4",
+    version="0.1.5",
     description="Package for easy statistical testing in Pandas",
     url="https://github.com/willros/pandstat",
     author="William Rosenbaum",
