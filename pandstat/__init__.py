@@ -4,11 +4,11 @@ pandstats.
 Easy statistical testing in Pandas
 """
 
-__version__ = "0.1.5"
+__version__ = "0.1.6"
 __author__ = "William Rosenbaum"
 
 from pandstat.linear_models import ols_model, one_sample_ttest, one_sample_ttest_grouped
-from pandstat.useful_methods import add_count, counting
+from pandstat.useful_methods import add_count, counting, altair_plot
 
 __all__ = [
     "ols_model",
@@ -16,4 +16,5 @@ __all__ = [
     "one_sample_ttest_grouped",
     "add_count",
     "counting",
+    "altair_plot",
 ]
