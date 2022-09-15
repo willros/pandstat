@@ -1,5 +1,6 @@
 import pandas as pd
 import pandas_flavor as pf
+import altair as alt
 
 
 @pf.register_dataframe_method
@@ -36,3 +37,39 @@ def counting(df_: pd.DataFrame, *cols: str, name: str = None) -> pd.DataFrame:
     if name:
         return df.rename(columns={"n": name})
     return df
+
+
+@pf.register_dataframe_method
+def altair_plot(df: pd.DataFrame, kind: str) -> alt.vegalite.v4.api.Chart:
+    """
+    :param kind: str. Kind of chart to plot.
+    Choose between:
+    bar, point, line, area, circle, rule, square, rect, text, trail, boxplot
+
+    Returns an altair graph object
+    """
+
+    if kind == "bar":
+        return alt.Chart(df).mark_bar()
+    elif kind == "point":
+        return alt.Chart(df).mark_point()
+    elif kind == "line":
+        return alt.Chart(df).mark_line()
+    elif kind == "area":
+        return alt.Chart(df).mark_area()
+    elif kind == "circle":
+        return alt.Chart(df).mark_circle()
+    elif kind == "rule":
+        return alt.Chart(df).mark_rule()
+    elif kind == "square":
+        return alt.Chart(df).mark_square()
+    elif kind == "rect":
+        return alt.Chart(df).mark_rect()
+    elif kind == "text":
+        return alt.Chart(df).mark_text()
+    elif kind == "tick":
+        return alt.Chart(df).mark_tick()
+    elif kind == "trail":
+        return alt.Chart(df).mark_trail()
+    elif kind == "boxplot":
+        return alt.Chart(df).mark_boxplot()

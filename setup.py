@@ -9,5 +9,8 @@ setup(
     author_email="william.rosenbaum88@gmail.com",
     license="MIT",
     packages=["pandstat"],
-    install_requires=["pandas", "statsmodels", "pandas-flavor"],
+    install_requires=["pandas", 
+                      "statsmodels", 
+                      "pandas-flavor",
+                      "altair"],
 )
