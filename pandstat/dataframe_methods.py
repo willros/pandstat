@@ -118,3 +118,22 @@ def lump(
         .drop(columns=[col])
         .rename(columns={"new_col": col})
     )
+
+
+@pf.register_dataframe_method
+def top_n(df: pd.DataFrame, col: str, by: str, n: int = 10) -> pd.DataFrame:
+    """
+    Returns the top n value for the chosen column based on the by column.
+    :param col: str. Column of interest.
+    :param by: str. Column to weight by.
+    :param n: int. Number of levels. default = 10
+    :return: pd.DataFrame
+    """
+    levels = df[col].unique()
+
+    dataframes = []
+    for level in levels:
+        top = df.loc[lambda x: x[col] == level].sort_values(by, ascending=False).head(n)
+        dataframes.append(top)
+
+    return pd.concat(dataframes).reset_index(drop=True)
