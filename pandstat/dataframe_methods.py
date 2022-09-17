@@ -133,7 +133,7 @@ def top_n(df: pd.DataFrame, col: str, by: str, n: int = 10) -> pd.DataFrame:
 
     dataframes = []
     for level in levels:
-        top = df.loc[lambda x: x[col] == level].sort_values(by, ascending=False).head(n)
+        top = df.loc[lambda x, level=level: x[col] == level].sort_values(by, ascending=False).head(n)
         dataframes.append(top)
 
     return pd.concat(dataframes).reset_index(drop=True)
