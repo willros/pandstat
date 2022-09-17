@@ -1,14 +1,15 @@
 """
 pandstats.
 
-Easy statistical testing in Pandas
+Easy statistical and useful dataframe methods for pandas!
 """
 
-__version__ = "0.1.6"
+__version__ = "0.1.7"
 __author__ = "William Rosenbaum"
 
 from pandstat.linear_models import ols_model, one_sample_ttest, one_sample_ttest_grouped
-from pandstat.useful_methods import add_count, counting, altair_plot
+
+from pandstat.dataframe_methods import add_count, counting, altair_plot, lump
 
 __all__ = [
     "ols_model",
@@ -17,4 +18,5 @@ __all__ = [
     "add_count",
     "counting",
     "altair_plot",
+    "lump",
 ]

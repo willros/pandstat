@@ -1,6 +1,7 @@
 import pandas as pd
 import pandas_flavor as pf
 import altair as alt
+import numpy as np
 
 
 @pf.register_dataframe_method
@@ -44,7 +45,8 @@ def altair_plot(df: pd.DataFrame, kind: str) -> alt.vegalite.v4.api.Chart:
     """
     :param kind: str. Kind of chart to plot.
     Choose between:
-    bar, point, line, area, circle, rule, square, rect, text, trail, boxplot
+    bar, point, line, area, circle, rule, square, rect, text, trail, boxplot,
+    line_errorband
 
     Returns an altair graph object
     """
@@ -73,3 +75,46 @@ def altair_plot(df: pd.DataFrame, kind: str) -> alt.vegalite.v4.api.Chart:
         return alt.Chart(df).mark_trail()
     elif kind == "boxplot":
         return alt.Chart(df).mark_boxplot()
+
+    elif kind == "line_errorband":
+        line = alt.Chart(df).mark_line()
+        band = line.mark_errorband(extent="ci")
+        line_band = band + line
+        return line_band
+
+
+@pf.register_dataframe_method
+def lump(
+    df: pd.DataFrame, col: str, n: int = 5, by: str = None, func: callable = np.size
+) -> pd.DataFrame:
+    """
+    Returns the column, keeping only the n top categories. Rest is collapsed into `other`.
+    :param df: pd.DataFrame.
+    :param col: str. The column to modify.
+    :param n: int. Number of levels to keep
+    :param by: str. Column to weigth by.
+    :param func: callable. Function to aggregate by.
+    :return: pd.DataFrame
+    """
+
+    if not by:
+        by = col
+
+    to_keep = (
+        df.groupby([col])
+        .agg(new=(by, func))
+        .reset_index()
+        .sort_values("new", ascending=False)
+        .head(n)[col]
+        .to_list()
+    )
+
+    return (
+        df.assign(
+            new_col=lambda x: np.select(
+                [x[col].isin(to_keep)], [x[col]], default="other"
+            )
+        )
+        .drop(columns=[col])
+        .rename(columns={"new_col": col})
+    )

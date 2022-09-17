@@ -2,15 +2,12 @@ from setuptools import setup
 
 setup(
     name="pandstat",
-    version="0.1.6",
-    description="Package for easy statistical testing in Pandas",
+    version="0.1.7",
+    description="Package for easy statistical testing and useful dataframe methods in pandas!",
     url="https://github.com/willros/pandstat",
     author="William Rosenbaum",
     author_email="william.rosenbaum88@gmail.com",
     license="MIT",
     packages=["pandstat"],
-    install_requires=["pandas", 
-                      "statsmodels", 
-                      "pandas-flavor",
-                      "altair"],
+    install_requires=["pandas", "statsmodels", "pandas-flavor", "altair"],
 )
