@@ -33,3 +33,8 @@ df = (pd.DataFrame()
 
 
 
+# TODO
+
+How to write `complete`
+make a pivot table and fillna(0) and melt back again! 
+NOPE! That wont work...

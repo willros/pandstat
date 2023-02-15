@@ -133,7 +133,21 @@ def top_n(df: pd.DataFrame, col: str, by: str, n: int = 10) -> pd.DataFrame:
 
     dataframes = []
     for level in levels:
-        top = df.loc[lambda x, level=level: x[col] == level].sort_values(by, ascending=False).head(n)
+        top = (
+            df.loc[lambda x, level=level: x[col] == level]
+            .sort_values(by, ascending=False)
+            .head(n)
+        )
         dataframes.append(top)
 
     return pd.concat(dataframes).reset_index(drop=True)
+
+
+@pf.register_dataframe_method
+def pivot_wider(
+    df_: pd.DataFrame, index: list, names_from: list, values_from: list
+) -> pd.DataFrame:
+    df = df_.pivot(index=index, columns=names_from, values=values_from).reset_index()
+    df.columns = ["_".join(x) for x in df.columns]
+
+    return df
