@@ -147,6 +147,44 @@ def top_n(df: pd.DataFrame, col: str, by: str, n: int = 10) -> pd.DataFrame:
 def pivot_wider(
     df_: pd.DataFrame, index: list, names_from: list, values_from: list
 ) -> pd.DataFrame:
+    """
+    Pivot a long-format Pandas DataFrame into a wide-format DataFrame.
+
+    Args:
+        df_: A Pandas DataFrame in long format.
+        index: A list of column names to use as the index for the output DataFrame.
+        names_from: A list of column names in the input DataFrame to use as the new column names in the output DataFrame.
+        values_from: A list of column names in the input DataFrame to use as the values for the new columns in the output DataFrame.
+
+    Returns:
+        A Pandas DataFrame in wide format, with columns corresponding to the values in `names_from` and rows corresponding to the unique values in `index`.
+
+    Raises:
+        ValueError: If any of the column names provided do not exist in the input DataFrame.
+
+    Example:
+        Given the following input DataFrame:
+
+            Name | Date | Metric | Value
+            ----------------------------
+            John | 1/1/21 | A | 10
+            John | 1/1/21 | B | 20
+            John | 1/2/21 | A | 30
+            John | 1/2/21 | B | 40
+            Jane | 1/1/21 | A | 50
+            Jane | 1/1/21 | B | 60
+            Jane | 1/2/21 | A | 70
+            Jane | 1/2/21 | B | 80
+
+        Calling `pivot_wider(df, index=['Name', 'Date'], names_from='Metric', values_from='Value')` would return:
+
+            Name | Date | A | B
+            ------------------
+            John | 1/1/21 | 10 | 20
+            John | 1/2/21 | 30 | 40
+            Jane | 1/1/21 | 50 | 60
+            Jane | 1/2/21 | 70 | 80
+    """
     df = df_.pivot(index=index, columns=names_from, values=values_from).reset_index()
     df.columns = ["_".join(x) for x in df.columns]
 
