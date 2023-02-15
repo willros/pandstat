@@ -1,0 +1,35 @@
+[build-system]
+requires = [
+    "setuptools",
+    "wheel",
+]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "pandstat"
+version = "0.1.9"
+dependencies = [
+    "altair",
+    "pandas",
+    "statsmodels",
+    "pandas-flavor",
+]
+authors = [
+    {name = "William Rosenbaum", email = "william.rosenbaum88@gmail.com"},
+]
+description = "Package for easy statistical testing and useful dataframe methods in pandas!"
+readme = "README.md"
+requires-python = ">=3.7"
+license = { file = "LICENSE" }
+classifiers = [
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3",
+]
+keywords = ["pandas", "tidyverse", "statistics", "dataframe-methods"]
+
+[project.optional-dependencies]
+dev = ["black", "pylint"]
+
+[project.urls]
+Homepage = "https://github.com/willros/pandstat"

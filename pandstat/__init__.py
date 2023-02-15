@@ -4,7 +4,6 @@ pandstats.
 Easy statistical and useful dataframe methods for pandas!
 """
 
-__version__ = "0.1.8"
 __author__ = "William Rosenbaum"
 
 from pandstat.linear_models import ols_model, one_sample_ttest, one_sample_ttest_grouped
