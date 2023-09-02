@@ -4,6 +4,19 @@ import altair as alt
 import numpy as np
 
 
+def crossing(**kwargs) -> pd.DataFrame:
+    items = list(kwargs.items())
+    first = items[0]
+    df = pd.DataFrame({first[0]: first[1]})
+    df = df.explode(first[0])
+    
+    for key, value in items[1:]:
+        df[key] = [value] * df.shape[0]
+        df = df.explode(key)
+
+    return df
+
+
 @pf.register_dataframe_method
 def add_count(df_: pd.DataFrame, col: str, name: str = None) -> pd.DataFrame:
     """
