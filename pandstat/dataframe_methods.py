@@ -9,7 +9,7 @@ def crossing(**kwargs) -> pd.DataFrame:
     first = items[0]
     df = pd.DataFrame({first[0]: first[1]})
     df = df.explode(first[0])
-
+    
     for key, value in items[1:]:
         df[key] = [value] * df.shape[0]
         df = df.explode(key)
@@ -198,7 +198,10 @@ def pivot_wider(
             Jane | 1/1/21 | 50 | 60
             Jane | 1/2/21 | 70 | 80
     """
+    
     df = df_.pivot(index=index, columns=names_from, values=values_from).reset_index()
-    df.columns = ["_".join(x) for x in df.columns]
+    names = [[str(y) for y in x] for x in df.columns]
+    names = ["_".join(x).strip("_") for x in names]
+    df.columns = names 
 
     return df
