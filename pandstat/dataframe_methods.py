@@ -9,7 +9,7 @@ def crossing(**kwargs) -> pd.DataFrame:
     first = items[0]
     df = pd.DataFrame({first[0]: first[1]})
     df = df.explode(first[0])
-    
+
     for key, value in items[1:]:
         df[key] = [value] * df.shape[0]
         df = df.explode(key)
@@ -54,7 +54,7 @@ def counting(df_: pd.DataFrame, *cols: str, name: str = None) -> pd.DataFrame:
 
 
 @pf.register_dataframe_method
-def altair_plot(df: pd.DataFrame, kind: str) -> alt.vegalite.v4.api.Chart:
+def altair_plot(df: pd.DataFrame, kind: str):
     """
     :param kind: str. Kind of chart to plot.
     Choose between:

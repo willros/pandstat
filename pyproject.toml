@@ -7,7 +7,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "pandstat"
-version = "0.1.9"
+version = "0.2.0"
 dependencies = [
     "altair",
     "pandas",
