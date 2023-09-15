@@ -9,12 +9,33 @@ def crossing(**kwargs) -> pd.DataFrame:
     first = items[0]
     df = pd.DataFrame({first[0]: first[1]})
     df = df.explode(first[0])
-    
+
     for key, value in items[1:]:
         df[key] = [value] * df.shape[0]
         df = df.explode(key)
 
     return df
+
+
+@pf.register_dataframe_method
+def find_max(df_):
+    df = (
+        df_.select_dtypes("number")
+        .max()
+        .to_frame()
+        .reset_index()
+        .rename(columns={"index": "column", 0: "value"})
+    )
+
+    largest_index = (
+        df_.select_dtypes("number")
+        .idxmax()
+        .to_frame()
+        .reset_index()
+        .rename(columns={"index": "column", 0: "idx"})
+    )
+
+    return df.merge(largest_index)[["column", "idx", "value"]]
 
 
 @pf.register_dataframe_method
@@ -198,10 +219,10 @@ def pivot_wider(
             Jane | 1/1/21 | 50 | 60
             Jane | 1/2/21 | 70 | 80
     """
-    
+
     df = df_.pivot(index=index, columns=names_from, values=values_from).reset_index()
     names = [[str(y) for y in x] for x in df.columns]
     names = ["_".join(x).strip("_") for x in names]
-    df.columns = names 
+    df.columns = names
 
     return df
